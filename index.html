@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <title>Calculator</title>
+  <meta charset='utf-8'>
+  <style>
+    .flex-grid {
+      display: flex;
+    }
+    .col {
+      flex: 1;
+    }
+
+    .calculator-wrapper {
+      max-width: 450px;
+    }
+    .result-row{
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+  <script>
+    var inputString, operation, firstNumber, secondNumber;
+
+    function onClick(event) {
+      el = event.target;
+      classes = el.classList;
+      if (classes.contains("operation")){
+        operationPress(el);
+      } else if (classes.contains("number")) {
+        numberPress(el);
+      } else if (classes.contains("equals")) {
+        equalsPress();
+      } else if (classes.contains("ce")) {
+        cePress();
+      }
+    }
+
+    function setDefaults() {
+      var inputString = "";
+      var operation = "";
+      var firstNumber = "";
+      var secondNumber = "";
+    }
+
+    function cePress() {
+      setDefaults();
+      resetInput();
+      resetResult();
+    }
+
+    function equalsPress() {
+      res = calculate();
+      setResult(res)
+      resetInput();
+    }
+
+    function numberPress(numElement) {
+      num = parseInt(numElement.innerText);
+      if(operation === "") {
+        firstNumber = `${firstNumber}${num}`
+      } else {
+        secondNumber = `${secondNumber}${num}`
+      }
+      appendToInput(num);
+    }
+
+    function operationPress(opElement) {
+      op = opElement.innerText;
+      if (operation !== ""){
+        res = calculate();
+        setResult(res)
+        resetInput();
+        appendToInput(res);
+      }
+      operation=op;
+      appendToInput(op);
+    }
+
+    function calculate() {
+      var val1 = parseFloat(firstNumber);
+      var val2 = parseFloat(secondNumber);
+      var res = 0;
+      switch (operation) {
+        case "/":
+          res = val1 / val2;
+          break;
+        case "*":
+          res = val1 * val2;
+          break;
+        case "-":
+          res = val1 - val2;
+          break;
+        case "+":
+          res = val1 + val2;
+          break;
+      }
+      operation="";
+      firstNumber = `${res}`;
+      secondNumber = "";
+      return res;
+    }
+
+    function appendToInput(val){
+      elem = document.getElementById("input");
+      elem.innerText = `${elem.innerText}${val}`
+    }
+
+    function resetInput(){
+      elem = document.getElementById("input");
+      elem.innerText = ""
+    }
+
+    function setResult(val) {
+      elem = document.getElementById("result");
+      elem.innerText = val;
+    }
+
+    function resetResult(){
+      elem = document.getElementById("result");
+      elem.innerText = "0"
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+      setDefaults();
+      var calculator = document.getElementById("calculator");
+      calculator.addEventListener('click', onClick);
+    });
+  </script>
+</head>
+<body>
+  <div class="calculator-wrapper" id="calculator">
+    <div class="result-row">
+      <div class="input" id="input"></div>
+      <div class="result" id="result">0</div>
+    </div>
+    <div class="button-row flex-grid">
+      <button class="col number" id="7">7</button>
+      <button class="col number" id="8">8</button>
+      <button class="col number" id="9">9</button>
+      <button class="col operation" id="/">/</button>
+    </div>
+    <div class="button-row flex-grid">
+      <button class="col number" id="4">4</button>
+      <button class="col number" id="5">5</button>
+      <button class="col number" id="6">6</button>
+      <button class="col operation" id="*">*</button>
+    </div>
+    <div class="button-row flex-grid">
+      <button class="col number" id="1">1</button>
+      <button class="col number" id="2">2</button>
+      <button class="col number" id="3">3</button>
+      <button class="col operation" id="-">-</button>
+    </div>
+    <div class="button-row flex-grid">
+      <button class="col number" id="0">0</button>
+      <button class="col ce" id="ce">ce</button>
+      <button class="col equals" id="=">=</button>
+      <button class="col operation" id="+">+</button>
+    </div>
+  </div>
+</body>
+</html>
