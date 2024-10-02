@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <title>My first html page</title>
+    <link rel="stylesheet" href="simple.css">
+    <style>
+        #header {width:80%; margin:auto;text-align: center;background:black;color:gainsboro;
+            border:5px solid gainsboro;}
+    </style>
+</head>
+
+<body>
+<div id="header">
+   <h1>Welcome to my page! This is the header</h1>
+   <h3>Read more about me below</h3>
+</div>
+<script>
+    var secs = new Date().getSeconds();
+    if (secs % 2 == 1) {
+        document.getElementById("header").style.backgroundColor = "orange";
+    } else {
+        document.getElementById("header").style.backgroundColor = "azure";
+    }
+</script>
+</body>
+</html>

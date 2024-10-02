@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="simple.css">
+</head>
+<body>
+
+<h3>I'm Bored! Help me figure out what to do for <input id="people_num" type="text" style="width: 40px;" placeholder="1"> people</h3>
+<button type="button" onclick="onClickSubmit()">What should I do today?</button>
+<div>
+  <p>How about:  <span id="somethingtodo"></span></p> <br>
+</div>
+
+<script>
+   async function onClickSubmit(){
+    // debugger;
+    amount_of_people = document.getElementById("people_num").value || 1;
+    var url = `https://www.boredapi.com/api/activity?participants=${amount_of_people}`;
+    var response = await fetch(url);
+    var jsonData = await response.json();
+    document.getElementById("somethingtodo").innerText = jsonData["activity"];
+    // document.getElementById("somethingtodo").innerText = jsonData.activity; // this is an alternative way to access data
+
+  }
+  </script>
+
+
+</body>
+</html>

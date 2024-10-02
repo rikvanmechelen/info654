@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="simple.css">
+    <script>
+      async function onClickArtist(event, id){
+        event.preventDefault();
+        var url = `https://api.moma.org/api/artists/${id}?token=202d9d02-ede9-49a8-9ebb-4aa5bd3f0000`
+        var response = await fetch(url);
+        var jsonData = await response.json();
+        writeToPage(jsonData);
+      }
+
+      function writeToPage(artist){
+        var bio = `
+            <h1>${artist.displayName}</h1>
+            <div>
+              nationality: ${artist.nationality} <br>
+              ${artist.displayDate} <br>
+              Amount of objects in MoMA collection: ${artist.objectCount}
+            </div>
+          `
+        document.getElementById("result").innerHTML = bio;
+      }
+    </script>
+  </head>
+<body>
+
+<h1>Arist data</h1>
+<ul>
+  <li><a href="" onclick="onClickArtist(event, 4609)">Picasso</a></li>
+  <li><a href="" onclick="onClickArtist(event, 2206)">Van Gogh</a></li>
+  <li><a href="" onclick="onClickArtist(event, 1364)">Dalí</a></li>
+</ul>
+<div id="result"></div>
+
+</body>
+</html>
