@@ -15,10 +15,12 @@
    async function onClickSubmit(){
     // debugger;
     amount_of_people = document.getElementById("people_num").value || 1;
-    var url = `https://www.boredapi.com/api/activity?participants=${amount_of_people}`;
+    var url = `https://bored-api.appbrewery.com/filter?participants=${amount_of_people}`;
     var response = await fetch(url);
     var jsonData = await response.json();
-    document.getElementById("somethingtodo").innerText = jsonData["activity"];
+    if (jsonData.length > 0) {
+      document.getElementById("somethingtodo").innerText = jsonData[0]["activity"];
+    }
     // document.getElementById("somethingtodo").innerText = jsonData.activity; // this is an alternative way to access data
 
   }
